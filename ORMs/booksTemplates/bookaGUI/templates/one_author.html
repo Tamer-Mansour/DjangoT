@@ -1,31 +1,71 @@
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>{{ one_author.first_name }} {{ one_author.last_name }}</title>
+    <!-- Add Bootstrap CSS link -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
   </head>
   <body>
-    <body>
-      <h2>{{ one_author.first_name }} {{ one_author.last_name }}</h2>
-      <h4>ID: {{ one_author.id }}</h4>
-      <h4>Notes:</h4>
-      <p>{{ one_author.notes }}</p>
-      <h4>Books:</h4>
-      {% for book in one_author.books.all %}
-      <ul>
-        <li>{{ book.title }}</li>
-      </ul>
-      {% endfor %}
-      <form action="/add_book_to_the_author/{{one_author.id}}" method="POST">
+    <div class="container">
+      <h1 class="my-4">{{ one_author.first_name }} {{ one_author.last_name }}</h1>
+      <div class="card mb-4">
+        <div class="card-header">
+          <h3>ID: {{ one_author.id }}</h3>
+        </div>
+        <div class="card-body">
+          <h4 class="card-title">Notes:</h4>
+          <p class="card-text">{{ one_author.notes }}</p>
+          <h4 class="card-title">Books:</h4>
+          <ul class="list-group">
+            {% for book in one_author.books.all %}
+            <li class="list-group-item">
+              {{ book.title }}
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+      <form
+        class="form-inline"
+        action="/add_book_to_the_author/{{one_author.id}}"
+        method="post"
+      >
         {% csrf_token %}
-        <select name="book">
-          {% for book in select_books %}
-          <option value="{{book.id}}">{{ book.title }}</option>
-          {% endfor %}
-          <input type="submit" value="Add" />
-        </select>
+        <div class="form-group mb-2 mr-2">
+          <select class="form-control" name="author">
+            {% for book in select_books %}
+            <option value="{{book.id}}">
+              {{ book.title }}
+            </option>
+            {% endfor %}
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary mb-2">Add</button>
       </form>
-    </body>
+    </div>
+    <!-- Add Bootstrap JS and jQuery links -->
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>

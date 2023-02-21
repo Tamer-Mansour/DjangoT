@@ -1,41 +1,94 @@
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Add Bootstrap CSS link -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
     <title>Add an Author</title>
   </head>
   <body>
-    <body>
-      <div>
-        <h1>Add an Author</h1>
-        <form action="/create_author" method="POST">
-          {% csrf_token %}
-          <label>First Name</label>
-          <input type="text" name="first_name" required /><br />
-          <label>Last Name</label>
-          <input type="text" name="last_name" required /><br />
-          <label>Notes</label>
-          <textarea name="notes" required></textarea><br />
-          <button type="submit">Add</button>
-        </form>
+    <div class="container my-5">
+      <div class="row">
+        <div class="col-md-6">
+          <h1>Add an Author</h1>
+          <form method="POST" action="/create_author" class="form-group">
+            {% csrf_token %}
+            <label for="first_name">First Name: </label>
+            <input
+              type="text"
+              name="first_name"
+              id="first_name"
+              class="form-control"
+              required
+            />
+            <label for="last_name">Last Name: </label>
+            <input
+              type="text"
+              name="last_name"
+              id="last_name"
+              class="form-control"
+              required
+            />
+            <label for="notes">Notes:</label>
+            <textarea
+              name="notes"
+              id="notes"
+              class="form-control"
+              required
+            ></textarea>
+            <button type="submit" class="btn btn-primary mt-2">Add</button>
+          </form>
+        </div>
       </div>
-      <div>
-        <table>
-          <thead>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Action</th>
-          </thead>
-          {% for author in all_authors %}
-          <tbody>
-            <td>{{ author.id }}</td>
-            <td>{{ author.first_name }} {{ author.last_name }}</td>
-            <td><a href="/authors/{{author.id}}">View</a></td>
-          </tbody>
-          {% endfor %}
-        </table>
+    </div>
+    <div class="container my-5">
+      <div class="row">
+        <div class="col-md-12">
+          <table class="table table-striped">
+            <thead class="thead-dark">
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for author in all_authors %}
+              <tr>
+                <td>{{ author.id }}</td>
+                <td>{{ author.first_name }} {{ author.last_name }}</td>
+                <td>
+                  <a href="/authors/{{author.id}}" class="btn btn-info">View</a>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
       </div>
-    </body>
+    </div>
+    <!-- Add Bootstrap JS and jQuery links -->
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>
