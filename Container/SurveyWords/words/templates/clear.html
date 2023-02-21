@@ -1,0 +1,7 @@
+{% extends 'base.html' %} {% block content %}
+<h2>Clear Session</h2>
+<form method="post" action="{% url 'words:clear' %}">
+  {% csrf_token %}
+  <button type="submit">Clear Session</button>
+</form>
+{% endblock %}

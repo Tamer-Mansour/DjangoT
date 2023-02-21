@@ -1,0 +1,30 @@
+{% extends 'base.html' %} {% block content %}
+<h1>Survey</h1>
+<form method="post" action="{% url 'process' %}">
+  {% csrf_token %}
+  <label for="counter">Counter:</label>
+  <input type="number" name="counter" id="counter" /><br /><br />
+
+  <label for="name">Name:</label>
+  <input type="name" name="name" id="name" /><br /><br />
+
+  <label for="location">location:</label>
+  <select name="location" id="location">
+    <option value="ramallah">ramallah</option>
+    <option value="jerusalem">jerusalem</option>
+    <option value="eskilstuna">eskilstuna</option></select
+  ><br /><br />
+
+  <label for="language">language:</label>
+  <select name="language" id="language">
+    <option value="js">js</option>
+    <option value="css">css</option>
+    <option value="c">c</option></select
+  ><br /><br />
+
+  <label for="comment">comment:</label>
+  <input type="comment" name="comment" id="comment" /><br /><br />
+
+  <button type="submit">Submit</button>
+</form>
+{% endblock %}

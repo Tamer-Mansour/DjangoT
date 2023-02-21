@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Ninja Gold</title>
+    <style type="text/css">
+      h2 {
+        margin-bottom: 10px;
+      }
+      p {
+        margin: 0;
+      }
+      .gold {
+        color: green;
+      }
+      .red {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Your Gold: <span class="gold">{{ request.session.gold }}</span></h2>
+    <form action="/process_gold/" method="post">
+      {% csrf_token %}
+      <input type="hidden" name="building" value="farm" />
+      <button type="submit">Farm (Earns 10-20 Golds)</button>
+    </form>
+    <form action="/process_gold/" method="post">
+      {% csrf_token %}
+      <input type="hidden" name="building" value="cave" />
+      <button type="submit">Cave (Earns 5-10 Golds)</button>
+    </form>
+    <form action="/process_gold/" method="post">
+      {% csrf_token %}
+      <input type="hidden" name="building" value="house" />
+      <button type="submit">House (Earns 2-5 Golds)</button>
+    </form>
+    <form action="/process_gold/" method="post">
+      {% csrf_token %}
+      <input type="hidden" name="building" value="casino" />
+      <button type="submit">Casino (Earns/Loses 0-50 Golds)</button>
+    </form>
+    <div>
+      <h2>Activities:</h2>
+      {% for activity in request.session.activities %}
+      <p class="{% if 'Lost' in activity %}red{% else %}gold{% endif %}">
+        {{ activity }}
+      </p>
+      {% endfor %}
+    </div>
+  </body>
+</html>

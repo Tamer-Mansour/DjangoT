@@ -1,0 +1,8 @@
+{% extends 'base.html' %} {% block content %}
+<h1>Survey Result</h1>
+<p>counter: {{ request.session.counter }}</p>
+<p>name: {{ request.session.name }}</p>
+<p>location: {{ request.session.location }}</p>
+<p>language: {{ request.session.language }}</p>
+<p>comment: {{ request.session.comment }}</p>
+{% endblock %}

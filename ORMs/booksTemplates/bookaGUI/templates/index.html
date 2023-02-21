@@ -1,0 +1,39 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Books and Authors</title>
+  </head>
+  <body>
+    <!--  -->
+    <div>
+      <h1>Add a book</h1>
+      <form method="POST" action="/create_book">
+        {% csrf_token %}
+        <label>Title</label>
+        <input type="text" name="title" required>
+        <label>Description</label>
+        <textarea name="desc" required></textarea>
+        <button type="submit">Add</button>
+      </form>
+    </div>
+    <!--  -->
+    <div>
+      <table>
+        <thead>
+          <th>ID</th>
+          <th>Title</th>
+          <th>Action</th>
+        </thead>
+        {%for book in all_books%}
+        <tbody>
+          <td>{{book.id}}</td>
+          <td>{{book.title}}</td>
+          <td><a href="/books/{{book.id}}">View</a></td>
+        </tbody>
+        {%endfor%}
+      </table>
+    </div>
+  </body>
+</html>

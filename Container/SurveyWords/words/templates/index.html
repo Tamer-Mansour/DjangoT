@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Add Word</h2>
+<form method="post" action="{% url 'words:add_word' %}">
+  {% csrf_token %}
+  <label for="word">Word:</label>
+  <input type="text" name="word" required>
+  <br>
+  <label for="color">Color:</label>
+  <input type="radio" name="color" value="red">Red
+  <input type="radio" name="color" value="blue">Blue
+  <input type="radio" name="color" value="green">Green
+  <br>
+  <label for="font_size">Font Size:</label>
+  <input type="checkbox" name="font_size" value="big">Big
+  <br>
+  <button type="submit">Add Word</button>
+</form>
+
+<h2>Words</h2>
+{% if words %}
+<ul>
+  {% for word, details in words %}
+  <li style="color: {{ details.color }}; font-size: {% if details.font_size == 'big' %}2em{% else %}1em{% endif %};">{{ word }}</li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>No words added yet.</p>
+{% endif %}
+
+<h2>Clear Session</h2>
+<form method="post" action="{% url 'words:clear' %}">
+  {% csrf_token %}
+  <button type="submit">Clear Session</button>
+</form>
+{% endblock %}

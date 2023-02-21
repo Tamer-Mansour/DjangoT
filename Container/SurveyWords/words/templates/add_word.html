@@ -1,0 +1,18 @@
+{% extends 'base.html' %} {% block content %}
+<h2>Add Word</h2>
+<form method="post" action="{% url 'words:add_word' %}">
+  {% csrf_token %}
+  <label for="word">Word:</label>
+  <input type="text" name="word" required />
+  <br />
+  <label for="color">Color:</label>
+  <input type="radio" name="color" value="red" />Red
+  <input type="radio" name="color" value="blue" />Blue
+  <input type="radio" name="color" value="green" />Green
+  <br />
+  <label for="font_size">Font Size:</label>
+  <input type="checkbox" name="font_size" value="big" />Big
+  <br />
+  <button type="submit">Add Word</button>
+</form>
+{% endblock %}
