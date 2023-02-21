@@ -60,12 +60,25 @@
               </tr>
             </thead>
             <tbody>
-                {% for author in all_authers %}
+              {% for author in all_authers %}
               <tr>
                 <td>{{ author.id }}</td>
                 <td>{{ author.first_name }} {{ author.last_name }}</td>
                 <td>
                   <a href="/authors/{{author.id}}" class="btn btn-info">View</a>
+                  <a
+                    href="/authors/{{author.id}}/update"
+                    class="btn btn-warning"
+                    >Update</a
+                  >
+                  <form
+                    method="POST"
+                    action="/authors/{{author.id}}/delete"
+                    class="d-inline"
+                  >
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                  </form>
                 </td>
               </tr>
               {% endfor %}

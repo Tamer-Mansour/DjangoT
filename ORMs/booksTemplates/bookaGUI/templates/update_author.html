@@ -1,0 +1,63 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+  </head>
+  <body class="container my-5">
+    <h2 class="mb-3">Update Author</h2>
+    <form method="POST">
+      {% csrf_token %}
+
+      <div class="form-group mb-3">
+        <label class="form-label">First Name:</label>
+        <input
+          type="text"
+          name="first_name"
+          value="{{ author.first_name }}"
+          placeholder="{{ author.first_name }}"
+          required
+          class="form-control"
+        />
+      </div>
+
+      <div class="form-group mb-3">
+        <label class="form-label">Last Name:</label>
+        <input
+          type="text"
+          name="last_name"
+          value="{{ author.last_name }}"
+          placeholder="{{ author.last_name }}"
+          required
+          class="form-control"
+        />
+      </div>
+
+      <div class="form-group mb-3">
+        <label class="form-label">Notes:</label>
+        <input
+          type="text"
+          name="notes"
+          value="{{ author.notes }}"
+          placeholder="{{ author.notes }}"
+          required
+          class="form-control"
+        />
+      </div>
+
+      <button type="submit" class="btn btn-primary">Update</button>
+    </form>
+
+    <!-- Bootstrap Bundle JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  </body>
+</html>

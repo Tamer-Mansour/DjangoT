@@ -71,3 +71,42 @@ def add_book_to_the_author(request, author_id):
     book = Book.objects.get(id=request.POST['book'])
     author.books.add(book)
     return redirect(f"/authors/{author_id}")
+
+
+def delete_author(request, author_id):
+    author = Author.objects.get(id=author_id)
+    author.delete()
+    return redirect('/authors')
+
+
+def update_author(request, author_id):
+    author = Author.objects.get(id=author_id)
+    if request.method == 'POST':
+        author.first_name = request.POST['first_name']
+        author.last_name = request.POST['last_name']
+        author.notes = request.POST['notes']
+        author.save()
+        return redirect(f'/authors/{author_id}')
+    context = {
+        'one_author': author
+    }
+    return render(request, 'update_author.html', context)
+
+
+def delete_book(request, book_id):
+    book = Book.objects.get(id=book_id)
+    book.delete()
+    return redirect('/')
+
+
+def update_book(request, book_id):
+    book = Book.objects.get(id=book_id)
+    if request.method == 'POST':
+        book.title = request.POST['title']
+        book.desc = request.POST['desc']
+        book.save()
+        return redirect(f'/books/{book_id}')
+    context = {
+        'one_book': book
+    }
+    return render(request, 'update_book.html', context)
