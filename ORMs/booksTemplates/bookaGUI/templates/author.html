@@ -52,7 +52,7 @@
       <div class="row">
         <div class="col-md-12">
           <table class="table table-striped">
-            <thead class="thead-dark">
+            <thead class="thead-light">
               <tr>
                 <th>ID</th>
                 <th>Name</th>
@@ -60,7 +60,7 @@
               </tr>
             </thead>
             <tbody>
-                {% for author in all_authors %}
+                {% for author in all_authers %}
               <tr>
                 <td>{{ author.id }}</td>
                 <td>{{ author.first_name }} {{ author.last_name }}</td>
