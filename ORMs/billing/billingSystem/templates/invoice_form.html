@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Create Invoice</title>
+  </head>
+  <body>
+    <h1>Create Invoice</h1>
+    <form method="post">
+      {% csrf_token %}
+      <label for="id_student">Student:</label>
+      <select name="student" id="id_student">
+        {% for student in form.student.choices %}
+        <option value="{{ student.0 }}">{{ student.1 }}</option>
+        {% endfor %}</select
+      ><br />
+      <label for="id_teacher">Teacher:</label>
+      <select name="teacher" id="id_teacher">
+        {% for teacher in form.teacher.choices %}
+        <option value="{{ teacher.0 }}">{{ teacher.1 }}</option>
+        {% endfor %}</select
+      ><br />
+      <label for="id_fee">Fee:</label>
+      <select name="fee" id="id_fee">
+        {% for fee in form.fee.choices %}
+        <option value="{{ fee.0 }}">{{ fee.1 }}</option>
+        {% endfor %}</select
+      ><br />
+      <label for="id_salary">Salary:</label>
+      <select name="salary" id="id_salary">
+        {% for salary in form.salary.choices %}
+        <option value="{{ salary.0 }}">{{ salary.1 }}</option>
+        {% endfor %}</select
+      ><br />
+      <label for="id_total_amount">Total Amount:</label>
+      <input
+        type="number"
+        name="total_amount"
+        id="id_total_amount"
+        step="0.01"
+        min="0"
+        value="{{ form.initial.total_amount }}"
+      /><br />
+      <input type="submit" value="Save Invoice" />
+    </form>
+    <a href="{% url 'invoice_list' %}">Back to Invoice List</a>
+  </body>
+</html>

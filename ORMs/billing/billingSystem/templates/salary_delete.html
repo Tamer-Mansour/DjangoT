@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete Salary</title>
+</head>
+<body>
+    <h1>Delete Salary</h1>
+    <p>Are you sure you want to delete the salary of {{ salary.teacher }}?</p>
+    <form action="{% url 'salary_delete' salary.id %}" method="POST">
+        {% csrf_token %}
+        <input type="submit" value="Yes">
+    </form>
+    <a href="{% url 'salary_detail' salary.id %}">No, Go Back</a>
+</body>
+</html>

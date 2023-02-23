@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Invoice List</title>
+</head>
+<body>
+	<h1>Invoice List</h1>
+	<ul>
+		{% for invoice in invoices %}
+			<li><a href="{% url 'invoice_detail' pk=invoice.pk %}">{{ invoice.date }} - {{ invoice.student.name }}</a></li>
+		{% empty %}
+			<li>No invoices found.</li>
+		{% endfor %}
+	</ul>
+	<a href="{% url 'invoice_create' %}">Create New Invoice</a>
+</body>
+</html>

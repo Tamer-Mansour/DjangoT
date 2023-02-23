@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Delete Fee</title>
+  </head>
+  <body>
+    <h1>Delete Fee</h1>
+    <p>
+      Are you sure you want to delete fee for {{ fee.student }} - {{ fee.amount
+      }} - {{ fee.date }}?
+    </p>
+    <form method="post">
+      {% csrf_token %}
+      <input type="submit" value="Yes, delete" />
+    </form>
+    <p><a href="{% url 'fee_detail' pk=fee.pk %}">Cancel</a></p>
+  </body>
+</html>

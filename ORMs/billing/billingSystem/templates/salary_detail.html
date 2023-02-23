@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Salary Detail</title>
+</head>
+<body>
+    <h1>Salary Detail</h1>
+    <p><strong>Teacher:</strong> {{ salary.teacher }}</p>
+    <p><strong>Amount:</strong> {{ salary.amount }}</p>
+    <p><strong>Date:</strong> {{ salary.date }}</p>
+    <a href="{% url 'salary_update' salary.id %}">Update Salary</a>
+    <form action="{% url 'salary_delete' salary.id %}" method="POST">
+        {% csrf_token %}
+        <input type="submit" value="Delete Salary">
+    </form>
+    <a href="{% url 'salary_list' %}">Back to Salary List</a>
+</body>
+</html>

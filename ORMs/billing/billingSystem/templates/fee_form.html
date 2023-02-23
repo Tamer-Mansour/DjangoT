@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>{% if form.instance.pk %}Edit{% else %}Add{% endif %} Fee</title>
+  </head>
+  <body>
+    <h1>{% if form.instance.pk %}Edit{% else %}Add{% endif %} Fee</h1>
+    <form method="post">
+      {% csrf_token %} {{ form.as_p }}
+      <input type="submit" value="Save" />
+    </form>
+    <p><a href="{% url 'fee_list' %}">Back to Fee List</a></p>
+  </body>
+</html>

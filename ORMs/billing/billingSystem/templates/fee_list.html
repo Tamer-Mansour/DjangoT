@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Fee List</title>
+</head>
+<body>
+    <h1>Fee List</h1>
+    <ul>
+        {% for fee in fees %}
+            <li><a href="{% url 'fee_detail' pk=fee.pk %}">{{ fee.student }} - {{ fee.amount }} - {{ fee.date }}</a></li>
+        {% endfor %}
+    </ul>
+    <p><a href="{% url 'fee_create' %}">Add Fee</a></p>
+</body>
+</html>

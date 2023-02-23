@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Invoice Detail</title>
+</head>
+<body>
+	<h1>Invoice Detail</h1>
+	<p>Date: {{ invoice.date }}</p>
+	<p>Student: {{ invoice.student.name }}</p>
+	<p>Teacher: {{ invoice.teacher.name }}</p>
+	<p>Fee: {{ invoice.fee.name }} - {{ invoice.fee.amount }}</p>
+	<p>Salary: {{ invoice.salary.amount }}</p>
+	<p>Total Amount: {{ invoice.total_amount }}</p>
+	<a href="{% url 'invoice_update' pk=invoice.pk %}">Edit Invoice</a>
+	<form action="{% url 'invoice_delete' pk=invoice.pk %}" method="post">
+		{% csrf_token %}
+		<input type="submit" value="Delete Invoice">
+	</form>
+	<a href="{% url 'invoice_list' %}">Back to Invoice List</a>
+</body>
+</html>

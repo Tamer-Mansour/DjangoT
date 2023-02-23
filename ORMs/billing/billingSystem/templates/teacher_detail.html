@@ -1,0 +1,21 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>{{ teacher.name }}</h1>
+
+    <p>Age: {{ teacher.age }}</p>
+    <p>Subject: {{ teacher.subject }}</p>
+    <p>Address: {{ teacher.address }}</p>
+
+    <a href="{% url 'teacher_update' teacher.id %}">Update</a>
+    <form method="post" action="{% url 'teacher_delete' teacher.id %}">
+      {% csrf_token %}
+      <input type="submit" value="Delete" />
+    </form>
+  </body>
+</html>

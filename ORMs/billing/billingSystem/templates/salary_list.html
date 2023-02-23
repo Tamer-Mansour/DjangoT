@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Salary List</title>
+</head>
+<body>
+    <h1>Salary List</h1>
+    <ul>
+    {% for salary in salaries %}
+        <li>
+            <a href="{% url 'salary_detail' salary.id %}">
+                {{ salary.teacher }} - {{ salary.amount }} - {{ salary.date }}
+            </a>
+        </li>
+    {% empty %}
+        <li>No salaries found.</li>
+    {% endfor %}
+    </ul>
+    <a href="{% url 'salary_create' %}">Create New Salary</a>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Fee Detail</title>
+  </head>
+  <body>
+    <h1>Fee Detail</h1>
+    <p><strong>Student:</strong> {{ fee.student }}</p>
+    <p><strong>Amount:</strong> {{ fee.amount }}</p>
+    <p><strong>Date:</strong> {{ fee.date }}</p>
+    <p>
+      <a href="{% url 'fee_update' pk=fee.pk %}">Edit</a> |
+      <a href="{% url 'fee_delete' pk=fee.pk %}">Delete</a>
+    </p>
+    <p><a href="{% url 'fee_list' %}">Back to Fee List</a></p>
+  </body>
+</html>

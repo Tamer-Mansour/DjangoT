@@ -101,7 +101,7 @@ def teacher_delete(request, pk):
     context = {'teacher': teacher}
     return render(request, 'teacher_delete.html', context)
 
-
+# Fees View
 def fee_list(request):
     fees = Fee.objects.all()
     context = {'fees': fees}
