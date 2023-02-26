@@ -1,0 +1,35 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Invoice</title>
+  </head>
+  <body>
+    <table>
+      <thead>
+        <tr>
+          <th>Student</th>
+          <th>Teacher</th>
+          <th>Amount</th>
+          <th>Invoice Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for invoice in invoices %}
+        <tr>
+          <td>
+            {{ invoice.student.first_name }} {{ invoice.student.last_name }}
+          </td>
+          <td>
+            {{ invoice.teacher.first_name }} {{ invoice.teacher.last_name }}
+          </td>
+          <td>{{ invoice.amount }}</td>
+          <td>{{ invoice.invoice_date }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <a href="{% url 'add_invoice' %}">Add Invoice</a>
+  </body>
+</html>

@@ -6,8 +6,8 @@ from .models import *
 
 
 
-EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
-NAME_REGEX = re.compile(r'^[a-zA-Z]+$')
+EMAIL_REGEX = re.compile('[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+')
+NAME_REGEX = re.compile('[a-zA-Z]+')
 
 def index(request):
     if 'login' not in request.session:

@@ -1,0 +1,19 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add teacher</title>
+  </head>
+  <body>
+    <form method="post">
+      {% csrf_token %}
+      <label>First Name: <input type="text" name="first_name" /></label><br />
+      <label>Last Name: <input type="text" name="last_name" /></label><br />
+      <label>Hire Date: <input type="date" name="hire_date" /></label><br />
+      <label>Yearly Salary: <input type="text" name="yearly_salary" /></label
+      ><br />
+      <button type="submit">Save</button>
+    </form>
+  </body>
+</html>
