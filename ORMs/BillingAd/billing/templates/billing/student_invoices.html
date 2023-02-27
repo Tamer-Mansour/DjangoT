@@ -1,0 +1,38 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>student Invoices</title>
+  </head>
+  <body>
+    <table>
+      <tr>
+        <th>Student</th>
+        <th>Amount</th>
+        <th>Description</th>
+        <th>Actions</th>
+      </tr>
+      {% for invoice in invoices %}
+      <tr>
+        <td>
+          {{ invoice.student.user.first_name }} {{
+          invoice.student.user.second_name }}
+        </td>
+        <td>{{ invoice.amount }}</td>
+        <td>{{ invoice.description }}</td>
+        <td>
+          <a href="{% url 'billing:student_invoice' invoice.id %}">View</a>
+          <a href="{% url 'billing:update_student_invoice' invoice.id %}"
+            >Update</a
+          >
+          <a href="{% url 'billing:delete_student_invoice' invoice.id %}"
+            >Delete</a
+          >
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+    <a href="{% url 'billing:create_student_invoice' %}">Create Invoice</a>
+  </body>
+</html>

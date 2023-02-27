@@ -1,116 +1,45 @@
 from django.shortcuts import render, redirect
-from django.contrib import messages
-import re
-import bcrypt
-from .models import *
+from django.contrib.auth import login, authenticate
+from .models import User
 
 
+def register(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        password = request.POST.get('password')
+        password2 = request.POST.get('password2')
 
-EMAIL_REGEX = re.compile('[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+')
-NAME_REGEX = re.compile('[a-zA-Z]+')
+        if password != password2:
+            return render(request, 'register.html', {'error': 'Passwords do not match'})
 
-def index(request):
-    if 'login' not in request.session:
-        request.session['login'] = False
-    
-    if 'u_id' not in request.session:
-        request.session['u_id'] = 0
-
-    return render(request, 'index.html')
-
-def reg_validate(request):
-    check = User.objects.filter(email = request.POST['email'])
-    error = False
-
-    if len(request.POST['first_name'])< 2:
-        messages.error(request,'First Name must be longer than 1 character', extra_tags = 'fn_error' )
-        error = True
-
-    if not NAME_REGEX.match(request.POST['first_name']):
-        messages.error(request,'Name Field must ONLY contain Alpha characters', extra_tags = 'fn_error')
-        error = True
-
-    if not NAME_REGEX.match(request.POST['last_name']):
-        messages.error(request,'Name Field must ONLY contain Alpha characters', extra_tags = 'ln_error')
-        error = True
-
-    if len(request.POST['last_name'])< 2:
-        messages.error(request,'Last Name must be longer than 1 character', extra_tags = 'ln_error')
-        error = True
-
-    if not EMAIL_REGEX.match(request.POST['email']):
-        messages.error(request,'Email is in an invalid format', extra_tags = 'email_error')
-        error = True
-
-    if check:
-        messages.error(request,'Email has already been registered', extra_tags = 'email_error')
-        error = True
-
-    if request.POST['password'] != request.POST['confirm_password']:
-        messages.error(request,'Passwords do not match', extra_tags = 'pw_error')
-        error = True
-
-    if len(request.POST['password']) < 8 :
-        messages.error(request,'Password must be 8 or more characters long', extra_tags = 'pw_error')
-
-    if error == True:
-        return redirect('/')
-
-    elif error == False:
-        hashed = bcrypt.hashpw(request.POST['password'].encode(), bcrypt.gensalt())
-
-        decoded_hash = hashed.decode('utf-8')
-
-        User.objects.create(first_name = request.POST['first_name'], last_name = request.POST['last_name'], email = request.POST['email'], password = decoded_hash)
-
-        messages.success(request, 'You have registered succesfully. You may now login', extra_tags = 'registered')
-        
-        return redirect('/')
-
-def login_validate(request):
-    error = False
-    echeck = User.objects.filter(email=request.POST['email'])
-
-    if not EMAIL_REGEX.match(request.POST['email']):
-        messages.error(request,'Invalid Credentials', extra_tags = 'log_error')
-        error = True
-    
+        try:
+            user = User.objects.get(email=email)
+            return render(request, 'register.html', {'error': 'Email already exists'})
+        except User.DoesNotExist:
+            user = User.objects.create_user(
+                email=email,
+                password=password,
+                first_name=first_name,
+                last_name=last_name
+            )
+            user.save()
+            login(request, user)
+            return redirect('home')
     else:
-        if echeck:
-            if echeck[0].email == request.POST['email']:
-                if bcrypt.checkpw(request.POST['password'].encode(),echeck[0].password.encode()):
-                    request.session['login'] = True
-                    request.session['u_id'] = echeck[0].id
-                    
-                else:
-                    messages.error(request,'Invalid Credentials', extra_tags = 'log_error')
-                    error = True
-            else:
-                messages.error(request,'Invalid Credentials', extra_tags = 'log_error')
-                error = True
+        return render(request, 'register.html')
+
+
+def login_view(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        user = authenticate(request, email=email, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('home')
         else:
-            messages.error(request,'Invalid Credentials', extra_tags = 'log_error')
-            error = True
-
-    
-
-    if error == True:
-        return redirect('/')
-    elif error == False:
-        return redirect('/home')
-
-
-def home(request):
-    if request.session['login'] == True:
-        user = User.objects.filter(id = request.session['u_id'])
-        user_info = {
-            'user':user[0]
-        }
-        return render(request, 'home.html', user_info)
-
+            return render(request, 'login.html', {'error': 'Invalid login credentials'})
     else:
-        return redirect('/')
-
-def logout(request):
-    request.session.clear()
-    return redirect('/')
+        return render(request, 'login.html')

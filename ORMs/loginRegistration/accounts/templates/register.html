@@ -1,0 +1,19 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register</title>
+  </head>
+  <body>
+    <form method="post">
+      {% csrf_token %} {{ error }}
+      <input type="email" name="email" placeholder="Email" />
+      <input type="text" name="first_name" placeholder="First Name" />
+      <input type="text" name="last_name" placeholder="Last Name" />
+      <input type="password" name="password" placeholder="Password" />
+      <input type="password" name="password2" placeholder="Confirm Password" />
+      <button type="submit">Sign up</button>
+    </form>
+  </body>
+</html>

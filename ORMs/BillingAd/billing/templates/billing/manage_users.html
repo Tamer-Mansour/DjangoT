@@ -1,0 +1,30 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manage Users</title>
+  </head>
+  <body>
+    <table>
+      <tr>
+        <th>First Name</th>
+        <th>Second Name</th>
+        <th>Role</th>
+        <th>Actions</th>
+      </tr>
+      {% for user in users %}
+      <tr>
+        <td>{{ user.first_name }}</td>
+        <td>{{ user.second_name }}</td>
+        <td>{{ user.role }}</td>
+        <td>
+          <a href="{% url 'billing:update_user' user.id %}">Update</a>
+          <a href="{% url 'billing:delete_user' user.id %}">Delete</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+    <a href="{% url 'billing:create_user' %}">Create User</a>
+  </body>
+</html>

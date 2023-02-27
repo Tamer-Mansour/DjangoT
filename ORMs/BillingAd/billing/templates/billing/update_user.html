@@ -1,0 +1,28 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update user</title>
+</head>
+<body>
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" name="first_name" value="{{ user.first_name }}">
+        <input type="text" name="second_name" value="{{ user.second_name }}">
+        <input type="text" name="third_name" value="{{ user.third_name }}">
+        <input type="text" name="forth_name" value="{{ user.forth_name }}">
+        <input type="email" name="email" value="{{ user.email }}">
+        <input type="password" name="password" value="{{ user.password }}">
+        <input type="date" name="date_of_birth" value="{{ user.date_of_birth }}">
+        <select name="role">
+            <option value="accountant" {% if user.role == 'accountant' %} selected {% endif %}>Accountant</option>
+            <option value="teacher" {% if user.role == 'teacher' %} selected {% endif %}>Teacher</option>
+            <option value="student" {% if user.role == 'student' %} selected {% endif %}>Student</option>
+        </select>
+        <input type="submit" value="Update User">
+    </form>
+    <a href="{% url 'billing:manage_users' %}">Back to Manage Users</a>
+    
+</body>
+</html>

@@ -1,0 +1,26 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>create user</title>
+  </head>
+  <body>
+    <form method="post">
+      {% csrf_token %}
+      <input type="text" name="first_name" placeholder="First Name" />
+      <input type="text" name="second_name" placeholder="Second Name" />
+      <input type="text" name="third_name" placeholder="Third Name" />
+      <input type="text" name="forth_name" placeholder="Forth Name" />
+      <input type="email" name="email" placeholder="Email" />
+      <input type="password" name="password" placeholder="Password" />
+      <input type="date" name="date_of_birth" placeholder="Date of Birth" />
+      <select name="role">
+        <option value="accountant">Accountant</option>
+        <option value="teacher">Teacher</option>
+        <option value="student">Student</option>
+      </select>
+      <input type="submit" value="Create User" />
+    </form>
+  </body>
+</html>

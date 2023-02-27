@@ -1,0 +1,31 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update student</title>
+</head>
+<body>
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" name="first_name" value="{{ student.user.first_name }}">
+        <input type="text" name="second_name" value="{{ student.user.second_name }}">
+        <input type="text" name="third_name" value="{{ student.user.third_name }}">
+        <input type="text" name="forth_name" value="{{ student.user.forth_name }}">
+        <input type="text" name="parent_phone" value="{{ student.parent_phone }}">
+        <input type="text" name="whatsapp_mother" value="{{ student.whatsapp_mother }}">
+        <input type="date" name="date_of_birth" value="{{ student.user.date_of_birth }}">
+        <input type="number" name="money" value="{{ student.money }}">
+        <input type="text" name="area" value="{{ student.area }}">
+        <select name="class_value">
+            <option value="1st" {% if student.class_value == '1st' %}selected{% endif %}>1st</option>
+            <option value="2nd" {% if student.class_value == '2nd' %}selected{% endif %}>2nd</option>
+        </select>
+        <input type="submit" value="Update Student">
+    </form>
+    <a href="{% url 'billing:manage_users' %}">Back to Manage Users</a>
+    
+    
+    
+</body>
+</html>

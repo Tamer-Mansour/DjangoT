@@ -1,0 +1,47 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>accountant</title>
+  </head>
+  <body>
+    <form method="post">
+      {% csrf_token %}
+      <input
+        type="text"
+        name="first_name"
+        value="{{ accountant.user.first_name }}"
+      />
+      <input
+        type="text"
+        name="second_name"
+        value="{{ accountant.user.second_name }}"
+      />
+      <input
+        type="text"
+        name="third_name"
+        value="{{ accountant.user.third_name }}"
+      />
+      <input
+        type="text"
+        name="forth_name"
+        value="{{ accountant.user.forth_name }}"
+      />
+      <input type="email" name="email" value="{{ accountant.user.email }}" />
+      <input
+        type="password"
+        name="password"
+        value="{{ accountant.user.password }}"
+      />
+      <input
+        type="date"
+        name="date_of_birth"
+        value="{{ accountant.user.date_of_birth }}"
+      />
+      <input type="number" name="salary" value="{{ accountant.salary }}" />
+      <input type="submit" value="Update Accountant" />
+    </form>
+    <a href="{% url 'billing:manage_users' %}">Back to Manage Users</a>
+  </body>
+</html>

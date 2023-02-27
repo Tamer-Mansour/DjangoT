@@ -1,0 +1,41 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Update teacher</title>
+  </head>
+  <body>
+    <form method="post">
+      {% csrf_token %}
+      <input
+        type="text"
+        name="first_name"
+        value="{{ teacher.user.first_name }}"
+      />
+      <input
+        type="text"
+        name="second_name"
+        value="{{ teacher.user.second_name }}"
+      />
+      <input
+        type="text"
+        name="third_name"
+        value="{{ teacher.user.third_name }}"
+      />
+      <input
+        type="text"
+        name="forth_name"
+        value="{{ teacher.user.forth_name }}"
+      />
+      <input
+        type="date"
+        name="date_of_birth"
+        value="{{ teacher.user.date_of_birth }}"
+      />
+      <input type="number" name="salary" value="{{ teacher.salary }}" />
+      <input type="submit" value="Update Teacher" />
+    </form>
+    <a href="{% url 'billing:manage_users' %}">Back to Manage Users</a>
+  </body>
+</html>
