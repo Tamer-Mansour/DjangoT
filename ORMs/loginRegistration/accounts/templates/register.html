@@ -6,14 +6,15 @@
     <title>Register</title>
   </head>
   <body>
+    <h1>Register</h1>
+
     <form method="post">
-      {% csrf_token %} {{ error }}
+      {% csrf_token %}
+      <input type="text" name="first_name" placeholder="First name" />
+      <input type="text" name="last_name" placeholder="Last name" />
       <input type="email" name="email" placeholder="Email" />
-      <input type="text" name="first_name" placeholder="First Name" />
-      <input type="text" name="last_name" placeholder="Last Name" />
       <input type="password" name="password" placeholder="Password" />
-      <input type="password" name="password2" placeholder="Confirm Password" />
-      <button type="submit">Sign up</button>
+      <button type="submit">Submit</button>
     </form>
   </body>
 </html>
