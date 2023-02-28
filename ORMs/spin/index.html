@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spinning Wheel Game</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container mt-3">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="card mb-3">
+            <div class="card-body">
+              <h2 class="card-title text-center">Spinning Wheel Game</h2>
+              <div class="spinner-container">
+                <div class="wheel">
+                  <div class="inner-wheel">
+                    <div class="section" style="background-color: #ff6384">
+                      Section 1
+                    </div>
+                    <div class="section" style="background-color: #36a2eb">
+                      Section 2
+                    </div>
+                    <div class="section" style="background-color: #cc65fe">
+                      Section 3
+                    </div>
+                    <div class="section" style="background-color: #ffce56">
+                      Section 4
+                    </div>
+                    <div class="section" style="background-color: #4bc0c0">
+                      Section 5
+                    </div>
+                    <div class="section" style="background-color: #ffa726">
+                      Section 6
+                    </div>
+                  </div>
+                  <div class="spin-button" id="spin-button">SPIN</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="card mb-3">
+            <div class="card-body">
+              <h2 class="card-title text-center">Win Percentage</h2>
+              <form id="win-percentage-form">
+                <div class="input-group mb-3">
+                  <input
+                    type="number"
+                    id="win-percentage-input"
+                    class="form-control"
+                    placeholder="Enter win percentage (0-100)"
+                  />
+                  <button type="submit" class="btn btn-primary">
+                    Set Win Percentage
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="card mb-3">
+            <div class="card-body">
+              <h2 class="card-title text-center">Add Choices</h2>
+              <form id="choice-form">
+                <div class="input-group mb-3">
+                  <input
+                    type="text"
+                    id="choice-input"
+                    class="form-control"
+                    placeholder="Enter choice"
+                  />
+                  <button type="submit" class="btn btn-primary">
+                    Add Choice
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="card mb-3">
+            <div class="card-body">
+              <h2 class="card-title text-center">Win Choices</h2>
+              <ul id="win-choices"></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
