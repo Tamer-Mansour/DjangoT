@@ -9,7 +9,9 @@ urlpatterns = [
     path('logout/', views.logout, name='logout'),
     path('register/', views.register, name="register"),
     path('message/', views.message, name="message"),
-    path('message/<int:message_id>/delete/', views.delete_message, name="delete_message"),
+    path('message/<int:message_id>/delete/',
+         views.delete_message, name="delete_message"),
     path('comment/', views.comment, name="comment"),
-    path('comment/<int:comment_id>/delete/', views.delete_comment, name="delete_comment"),
+    path('comment/<int:comment_id>/delete/',
+         views.delete_comment, name="delete_comment"),
 ]

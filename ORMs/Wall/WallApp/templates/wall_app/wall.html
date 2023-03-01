@@ -1,0 +1,31 @@
+{% extends 'wall_app/base.html' %} {% block content %}
+<h1>{{ wall_user.first_name }} {{ wall_user.last_name }}'s Wall</h1>
+
+{% if new_message_form %}
+<form method="post" action="{% url 'message' %}">
+  {% csrf_token %} {{ new_message_form.as_p }}
+  <button type="submit">Post</button>
+</form>
+{% endif %} {% for wall_message in wall_messages %}
+<div class="wall-message">
+  <p>{{ wall_message.message }}</p>
+  <p class="text-muted">
+    {{ wall_message.user.first_name }} {{ wall_message.user.last_name }} - {{
+    wall_message.created_at|date:"F j, Y, P" }}
+  </p>
+  <form method="post" action="{% url 'comment' %}">
+    {% csrf_token %} {{ wall_message.comment_form.as_p }}
+    <input type="hidden" name="message" value="{{ wall_message.id }}" />
+    <button type="submit">Comment</button>
+  </form>
+  {% for comment in wall_message.comments.all %}
+  <div class="wall-comment">
+    <p>{{ comment.comment }}</p>
+    <p class="text-muted">
+      {{ comment.user.first_name }} {{ comment.user.last_name }} - {{
+      comment.created_at|date:"F j, Y, P" }}
+    </p>
+  </div>
+  {% endfor %}
+</div>
+{% endfor %} {% endblock %}
