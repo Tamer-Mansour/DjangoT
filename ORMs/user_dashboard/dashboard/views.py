@@ -38,9 +38,6 @@ def users_homepage(request, id):
 
     return render(request, 'user_app/users_homepage.html', context)
 
-
-import bcrypt
-
 def register(request):
     if request.method == "POST":
         errors = User.objects.basic_validator(request.POST)

@@ -50,7 +50,6 @@ def login(request):
     if request.method == 'POST':
         email_address = request.POST.get('email')
         # password = request.POST['pword']
-
         try:
             user = User.objects.get(email_address=email_address)
         except User.DoesNotExist:
@@ -78,8 +77,6 @@ def wall(request):
 
 
 def post_message(request):
-    print('*'*100)
-    print('creating message...')
     if request.method == 'POST':
         new_message = Message.objects.create(
             message_text=request.POST['msg'],
