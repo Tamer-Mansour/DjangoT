@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <title>The Wall Login</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="text-center">Registration Form</h1>
+      <form action="{% url 'register' %}" method="post" class="form-group">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="fname">First Name:</label>
+          <input type="text" id="fname" name="fname" class="form-control" />
+        </div>
+        <div class="form-group">
+          <label for="lname">Last Name:</label>
+          <input type="text" id="lname" name="lname" class="form-control" />
+        </div>
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" class="form-control" />
+        </div>
+        <div class="form-group">
+          <label for="pword">Password:</label>
+          <input type="password" id="pword" name="pword" class="form-control" />
+        </div>
+        <div class="form-group">
+          <label for="confirm">Confirm Password:</label>
+          <input
+            type="password"
+            id="confirm"
+            name="confirm"
+            class="form-control"
+          />
+        </div>
+        <button type="submit" class="btn btn-primary">Register</button>
+      </form>
+      <div class="log">
+        <h1 class="text-center">Login Form</h1>
+        <form action="{% url 'login' %}" method="post" class="form-group">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" class="form-control" />
+          </div>
+          <div class="form-group">
+            <label for="pword">Password:</label>
+            <input
+              type="password"
+              id="pword"
+              name="pword"
+              class="form-control"
+            />
+          </div>
+          <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+      </div>
+
+      {% if messages %}
+      <ul class="alert alert-danger">
+        {% for message in messages %}
+        <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>
+          {{ message }}
+        </li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+  </body>
+</html>
