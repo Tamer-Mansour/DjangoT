@@ -1,8 +1,10 @@
+from .models import Post
+from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User as UserView
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Profile, Post, Like, Comment
+from .models import *
 
 
 def signup(request):
@@ -12,7 +14,7 @@ def signup(request):
         username = request.POST.get('username')
         email = request.POST.get('email')
         password = request.POST.get('password')
-        user = User.objects.create_user(
+        user = UserView.objects.create_user(
             username=username, email=email, password=password, first_name=first_name, last_name=last_name)
         user.save()
         return redirect('/')
@@ -42,8 +44,14 @@ def logout_view(request):
 
 @login_required
 def profile(request):
+
     if request.method == 'POST':
-        profile = Profile.objects.get(user=request.user)
+        user = User()
+        user = request.POST.get(request.user)
+        user.save()
+        profile = Profile()
+        # profile = Profile.objects.get(user=request.user)
+        profile.user = user
         profile.bio = request.POST.get('bio')
         profile.gender = request.POST.get('gender')
 
@@ -86,9 +94,6 @@ def user_delete(request, pk):
     return redirect('user_list')
 
 
-from django.shortcuts import render, redirect
-from .models import Post
-
 @login_required
 def create_post(request):
     if request.method == 'POST':
@@ -101,12 +106,13 @@ def create_post(request):
             title=title,
             image=image,
             body=body,
-            author = request.user
+            author=request.user
         )
 
         return redirect('')
 
     return render(request, 'create_post.html')
+
 
 @login_required
 def post_detail(request, pk):
@@ -125,6 +131,7 @@ def post_detail(request, pk):
         'comments': comments,
     }
     return render(request, 'post_detail.html', context)
+
 
 def posts_list(request):
     posts = Post.objects.all()
