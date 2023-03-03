@@ -1,12 +1,8 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.shortcuts import render, redirect
-import hashlib
-import random
-import string
-from django.core.mail import send_mail
-from .models import *
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Profile, Post, Like, Comment
 
 
 def signup(request):
@@ -16,28 +12,10 @@ def signup(request):
         username = request.POST.get('username')
         email = request.POST.get('email')
         password = request.POST.get('password')
-
-        # Generate verification code
-        verification_code = ''.join(
-            random.choice(string.ascii_letters + string.digits) for _ in range(32))
-        verification_code = hashlib.sha256(
-            verification_code.encode()).hexdigest()
-
         user = User.objects.create_user(
             username=username, email=email, password=password, first_name=first_name, last_name=last_name)
-        user.email_verification_code = verification_code
         user.save()
-
-        # Send verification email
-        subject = 'Verify your email address'
-        message = 'Please click the link below to verify your email address:\n'
-        message += request.build_absolute_uri(
-            f'/verify_email/{verification_code}/')
-        from_email = 'tmansour720@gmail.com'
-        recipient_list = [email]
-        send_mail(subject, message, from_email, recipient_list)
-
-        return redirect('login')
+        return redirect('/')
     return render(request, 'signup.html')
 
 
@@ -51,22 +29,10 @@ def user_login(request):
             if user.is_superuser:
                 return redirect('user_list')
             else:
-                return redirect('profile')
+                return redirect('/')
         else:
             return render(request, 'login.html', {'error_message': 'Invalid login credentials'})
     return render(request, 'login.html')
-
-
-def verify_email(request, verification_code):
-    user = User.objects.filter(
-        email_verification_code=verification_code).first()
-    if user:
-        user.is_email_verified = True
-        user.email_verification_code = None
-        user.save()
-        return render(request, 'email_verified.html')
-    else:
-        return render(request, 'verification_failed.html')
 
 
 def logout_view(request):
@@ -76,7 +42,21 @@ def logout_view(request):
 
 @login_required
 def profile(request):
-    return render(request, 'profile.html')
+    if request.method == 'POST':
+        profile = Profile.objects.get(user=request.user)
+        profile.bio = request.POST.get('bio')
+        profile.gender = request.POST.get('gender')
+
+        image = request.FILES.get('image')
+        if image:
+            profile.image = image
+
+        profile.save()
+
+    context = {
+        'user': request.user,
+    }
+    return render(request, 'profile.html', context)
 
 
 @login_required
@@ -104,3 +84,51 @@ def user_edit(request, pk):
 def user_delete(request, pk):
     User.objects.get(pk=pk).delete()
     return redirect('user_list')
+
+
+from django.shortcuts import render, redirect
+from .models import Post
+
+@login_required
+def create_post(request):
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        image = request.FILES.get('image')
+        body = request.POST.get('body')
+        request.user.username
+
+        post = Post.objects.create(
+            title=title,
+            image=image,
+            body=body,
+            author = request.user
+        )
+
+        return redirect('')
+
+    return render(request, 'create_post.html')
+
+@login_required
+def post_detail(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    if request.method == 'POST':
+        if 'like' in request.POST:
+            Like.objects.create(user=request.user, post=post)
+        if 'comment' in request.POST:
+            body = request.POST.get('body')
+            Comment.objects.create(user=request.user, post=post, body=body)
+    likes = post.like_set.count()
+    comments = post.comment_set.all()
+    context = {
+        'post': post,
+        'likes': likes,
+        'comments': comments,
+    }
+    return render(request, 'post_detail.html', context)
+
+def posts_list(request):
+    posts = Post.objects.all()
+    context = {
+        'posts': posts,
+    }
+    return render(request, 'posts_list.html', context)
