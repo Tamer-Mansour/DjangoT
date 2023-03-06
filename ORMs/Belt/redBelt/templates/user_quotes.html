@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <title>{{ user.username }}'s Quotes</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Welcome {{ user.username }}!</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'edit_profile' user.id %}"
+                  >profile</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/quotes/"
+                  >Quotes</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/logout/">Logout</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+    <div class="container mt-3">
+      <h1>{{ user.username }}'s Quotes</h1>
+
+      {% if quotes %}
+      <ul class="list-group">
+        {% for quote in quotes %}{% with like_count=quote.likes.count %}
+        <li class="list-group-item">
+          <div class="mb-2">
+            <p class="fw-bold">Quote:</p>
+            <p>{{ quote.text }}</p>
+          </div>
+          <div class="mb-2">
+            <p class="fw-bold">Author:</p>
+            <p>{{ quote.author }}</p>
+          </div>
+          <div class="mb-2">
+            <p class="fw-bold">Number of likes:</p>
+            <p>
+              # {{ like_count }} like{{ like_count|pluralize }}
+            </p>
+          </div>
+          <div class="mb-2">
+            <p class="fw-bold">Created at:</p>
+            <p>{{ quote.created_at }}</p>
+          </div>
+        </li>
+        {% endwith %}{% endfor %}
+      </ul>
+      {% else %}
+      <p class="mt-3">No quotes found.</p>
+      {% endif %}
+    </div>
+  </body>
+</html>
