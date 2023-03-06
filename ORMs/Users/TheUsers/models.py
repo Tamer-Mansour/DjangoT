@@ -27,19 +27,18 @@ class User(AbstractUser):
 
 
 class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    bio = models.TextField(max_length=500, blank=True)
+    image = models.ImageField(upload_to='profile_pics', blank=True)
+
     GENDER_CHOICES = [
         ('M', 'Male'),
         ('F', 'Female'),
     ]
-
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    bio = models.TextField(max_length=500, blank=True)
-    image = models.ImageField(upload_to='profile_pics', blank=True)
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES, blank=True)
 
     def __str__(self):
         return f'{self.user.username} Profile'
-
 
 
 class Post(models.Model):
