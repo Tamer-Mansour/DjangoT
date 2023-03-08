@@ -31,9 +31,8 @@ def register(request):
 
     return render(request, 'register.html')
 
+
 # login method
-
-
 def login(request):
     if request.method == 'POST':
         email = request.POST.get('email')
@@ -55,9 +54,8 @@ def login(request):
 
     return render(request, 'login.html')
 
+
 # logout method
-
-
 def logout(request):
     if request.session.get('user_id'):
         del request.session['user_id']
@@ -87,7 +85,7 @@ def edit_profile(request, user_id):
     return render(request, 'edit_profile.html', {'user': user})
 
 
-# Home Page
+# Home Page method
 def home(request):
     quotes = Quote.objects.all()
     if not request.session.get('user_id'):
@@ -100,9 +98,8 @@ def home(request):
     }
     return render(request, 'home.html', context)
 
+
 # add quote method
-
-
 def quotes(request):
     quotes = Quote.objects.all()
     user = User.objects.get(id=request.session.get('user_id'))
@@ -126,6 +123,7 @@ def quotes(request):
     return render(request, 'quotes.html', context)
 
 
+# display all quotes method
 def view_quotes(request):
     quotes = Quote.objects.all()
     user_id = request.session.get('user_id')
@@ -133,6 +131,7 @@ def view_quotes(request):
     return render(request, 'quotes.html', {'quotes': quotes, 'user_id': user_id})
 
 
+# display all user quotes method
 def user_quotes(request, user_id):
     user = User.objects.get(id=user_id)
     quotes = Quote.objects.filter(addby=user)
@@ -152,6 +151,7 @@ def delete_quote(request, quote_id):
     return redirect('quotes')
 
 
+# like the fav quote method
 def like_quote(request, quote_id):
     quote = Quote.objects.get(id=quote_id)
     user_id = request.session.get('user_id')
@@ -170,6 +170,7 @@ def like_quote(request, quote_id):
     return redirect('quotes')
 
 
+# unlike the quote method
 def unlike_quote(request, quote_id):
     quote = Quote.objects.get(id=quote_id)
     user_id = request.session.get('user_id')
